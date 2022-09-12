@@ -5,8 +5,15 @@ from . import views
 
 router = DefaultRouter()
 router.register('tweet', views.TweetViewSet, basename='tweet')
-router.register('comment', views.CommentViewSet, basename='comment')
+# router.register('comment', views.CommentViewSet, basename='comment')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('tweet/<int:tweet_id>/comments/', views.CommentListCreateAPIView.as_view()),
+    path('tweet/<int:tweet_id>/comments/<int:pk>', views.CommentRetrieveUpdateDestroyAPIView.as_view()),
+    path('tweet/<int:tweet_id>/like/', views.PostTweetLike.as_view()),
+    path('tweet/<int:tweet_id>/dislike/', views.PostTweetDislike.as_view()),
+    path('tweet/<int:tweet_id>/comments/<int:comment_id>/like', views.PostCommentLike.as_view()),
+    path('tweet/<int:tweet_id>/comments/<int:comment_id>/dislike', views.PostCommentDislike.as_view()),
+
 ]
